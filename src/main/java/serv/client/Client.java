@@ -18,10 +18,10 @@ public class Client {
         this.name = name;
         connected = server.connectUser(this);
         if (connected){
-            printText("Вы успешно подключились!\n");
+            printText("Successfully connected!\n");
             return true;
         } else {
-            printText("Подключение не удалось");
+            printText("Connection failed!");
             return false;
         }
     }
@@ -33,7 +33,7 @@ public class Client {
                 server.sendMessage(name + ": " + message);
             }
         } else {
-            printText("Нет подключения к серверу");
+            printText("No server connection!");
         }
     }
 
@@ -47,7 +47,7 @@ public class Client {
             connected = false;
             clientView.disconnectFromServer();
             server.disconnectUser(this);
-            printText("Вы были отключены от сервера!");
+            printText("You have been disconnected from the server!");
         }
     }
 

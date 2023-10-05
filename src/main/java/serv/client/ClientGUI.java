@@ -6,11 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-
 public class ClientGUI extends JFrame implements ClientView{
-    public static final int WIDTH = 400;
-    public static final int HEIGHT = 300;
+    public static final int CLIENT_WINDOW_WIDTH = 400;
+    public static final int CLIENT_WINDOW_HEIGHT = 300;
     public static final Color blueColor = new Color(0, 0, 255);
 
     JTextArea log;
@@ -23,12 +21,11 @@ public class ClientGUI extends JFrame implements ClientView{
     public ClientGUI(Server server){
         this.client = new Client(this, server);
 
-        setSize(WIDTH, HEIGHT);
+        setSize(CLIENT_WINDOW_WIDTH, CLIENT_WINDOW_HEIGHT);
         setResizable(false);
         setTitle("Chat client");
         setLocation(server.getX() - 500, server.getY());
 
-        // Цвет фона и рамки окна
         getContentPane().setBackground(blueColor);
         getRootPane().setBorder(BorderFactory.createLineBorder(blueColor, 3));
 
@@ -59,13 +56,18 @@ public class ClientGUI extends JFrame implements ClientView{
         headerPanel.setVisible(visible);
     }
 
-    public void sendMessage(){
-        client.sendMessage(tfMessage.getText());
-        tfMessage.setText("");
-    }
-
     private void appendLog(String text){
         log.append(text + "\n");
+    }
+
+    private String currentUser = "";
+
+    private void promptForUser() {
+        String newName = JOptionPane.showInputDialog("Please enter your name:");
+        if (newName != null && !newName.trim().isEmpty()) {
+            currentUser = newName;
+            showMessage("User name has been set as: " + currentUser);
+        }
     }
 
     private void createPanel() {
@@ -76,24 +78,28 @@ public class ClientGUI extends JFrame implements ClientView{
 
     private JPanel createHeaderPanel(){
         headerPanel = new JPanel(new GridLayout(2, 3));
+
         tfIPAddress = new JTextField("127.0.0.1");
         tfPort = new JTextField("8189");
-        tfLogin = new JTextField("Ivan Ivanovich");
-        JButton btnLogin = new JButton("login");
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connectToServer();
-            }
-        });
+        tfLogin = new JTextField("Root");
+
+        JButton btnLogin = buildButton("Login", e -> connectToServer());
+        JButton btnSetName = buildButton("Set name", e -> promptForUser());
 
         headerPanel.add(tfIPAddress);
         headerPanel.add(tfPort);
-        headerPanel.add(new JPanel());
+        headerPanel.add(Box.createGlue());
         headerPanel.add(tfLogin);
         headerPanel.add(btnLogin);
+        headerPanel.add(btnSetName);
 
         return headerPanel;
+    }
+
+    public void sendMessage(){
+        String msg = tfMessage.getText();
+        client.sendMessage(currentUser + ": " + msg);
+        tfMessage.setText("");
     }
 
     private JScrollPane createLog(){
@@ -113,20 +119,21 @@ public class ClientGUI extends JFrame implements ClientView{
                 }
             }
         });
-        btnSend = new JButton("send");
 
-        // Устанавливаем цвет фона и текста для кнопки
-        btnSend.setBackground(blueColor);
-        btnSend.setForeground(Color.WHITE);
-        btnSend.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sendMessage();
-            }
-        });
+        btnSend = buildButton("Send", e -> sendMessage());
+
         panel.add(tfMessage);
         panel.add(btnSend, BorderLayout.EAST);
+
         return panel;
+    }
+
+    private JButton buildButton(String text, ActionListener actionListener) {
+        JButton button = new JButton(text);
+        button.setBackground(blueColor);
+        button.setForeground(Color.WHITE);
+        button.addActionListener(actionListener);
+        return button;
     }
 
     @Override
