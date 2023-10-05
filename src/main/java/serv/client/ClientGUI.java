@@ -10,6 +10,7 @@ import java.awt.event.*;
 public class ClientGUI extends JFrame implements  ClientView {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
+    public static final Color blueColor = new Color(0, 0, 255);
 
     JTextArea log;
     JTextField tfIPAddress, tfPort, tfLogin, tfMessage;
@@ -26,6 +27,10 @@ public class ClientGUI extends JFrame implements  ClientView {
         setResizable(false);
         setTitle("Chat client");
         setLocation(server.getX() - 500, server.getY());
+
+        // Цвет фона и рамки окна
+        getContentPane().setBackground(blueColor);
+        getRootPane().setBorder(BorderFactory.createLineBorder(blueColor, 3));
 
         createPanel();
 
@@ -74,6 +79,11 @@ public class ClientGUI extends JFrame implements  ClientView {
         tfLogin = new JTextField("Ivan Ivanovich");
         password = new JPasswordField("123456");
         btnLogin = new JButton("login");
+
+        // Цвет фона и текста для кнопки
+        btnLogin.setBackground(blueColor);
+        btnLogin.setForeground(Color.WHITE);
+
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,6 +119,10 @@ public class ClientGUI extends JFrame implements  ClientView {
             }
         });
         btnSend = new JButton("send");
+        // Устанавливаем цвет фона и текста для кнопки
+//        Color blueColor = new Color(0, 0, 255);
+        btnSend.setBackground(blueColor);
+        btnSend.setForeground(Color.WHITE);
         btnSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

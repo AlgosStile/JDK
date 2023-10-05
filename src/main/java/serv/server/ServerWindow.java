@@ -22,6 +22,7 @@ public class ServerWindow extends JFrame {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
     public static final String LOG_PATH = "./src/main/java/serv/server/log.txt";
+    public static final Color blueColor = new Color(0, 0, 255);
 
     List<Client> clientGUIList;
 
@@ -37,6 +38,10 @@ public class ServerWindow extends JFrame {
         setResizable(false);
         setTitle("Chat server");
         setLocationRelativeTo(null);
+
+        // Цвет фона и рамки окна
+        getContentPane().setBackground(blueColor);
+        getRootPane().setBorder(BorderFactory.createLineBorder(blueColor, 3));
 
         createPanel();
 
@@ -110,6 +115,11 @@ public class ServerWindow extends JFrame {
         btnPanel.setLayout(new FlowLayout());
 
         btnStart = new JButton("Start");
+
+        // Устанавливаем цвет фона и текста для кнопки
+        btnStart.setBackground(blueColor);
+        btnStart.setForeground(Color.WHITE);
+
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,6 +129,10 @@ public class ServerWindow extends JFrame {
         btnPanel.add(btnStart);
 
         btnStop = new JButton("Stop");
+
+        // Устанавливаем цвет фона и текста для кнопки
+        btnStop.setBackground(blueColor);
+        btnStop.setForeground(Color.WHITE);
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
