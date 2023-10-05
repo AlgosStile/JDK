@@ -1,27 +1,27 @@
 package serv.client;
 
-
-import serv.server.ServerWindow;
+import serv.server.Server;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ClientGUI extends JFrame implements  ClientView {
+
+
+public class ClientGUI extends JFrame implements ClientView{
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
     public static final Color blueColor = new Color(0, 0, 255);
 
     JTextArea log;
     JTextField tfIPAddress, tfPort, tfLogin, tfMessage;
-    JPasswordField password;
-    JButton btnLogin, btnSend;
+    JButton btnSend;
     JPanel headerPanel;
 
     private Client client;
 
-    public ClientGUI(ServerWindow server){
-        this.client = new Client((ClientView) this, server);
+    public ClientGUI(Server server){
+        this.client = new Client(this, server);
 
         setSize(WIDTH, HEIGHT);
         setResizable(false);
@@ -49,8 +49,10 @@ public class ClientGUI extends JFrame implements  ClientView {
     }
 
     public void disconnectFromServer() {
+        if (client != null) {
+            client.disconnect();
+        }
         hideHeaderPanel(true);
-        client.disconnect();
     }
 
     private void hideHeaderPanel(boolean visible){
@@ -72,18 +74,12 @@ public class ClientGUI extends JFrame implements  ClientView {
         add(createFooter(), BorderLayout.SOUTH);
     }
 
-    private Component createHeaderPanel(){
+    private JPanel createHeaderPanel(){
         headerPanel = new JPanel(new GridLayout(2, 3));
         tfIPAddress = new JTextField("127.0.0.1");
         tfPort = new JTextField("8189");
         tfLogin = new JTextField("Ivan Ivanovich");
-        password = new JPasswordField("123456");
-        btnLogin = new JButton("login");
-
-        // Цвет фона и текста для кнопки
-        btnLogin.setBackground(blueColor);
-        btnLogin.setForeground(Color.WHITE);
-
+        JButton btnLogin = new JButton("login");
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,19 +91,18 @@ public class ClientGUI extends JFrame implements  ClientView {
         headerPanel.add(tfPort);
         headerPanel.add(new JPanel());
         headerPanel.add(tfLogin);
-        headerPanel.add(password);
         headerPanel.add(btnLogin);
 
         return headerPanel;
     }
 
-    private Component createLog(){
+    private JScrollPane createLog(){
         log = new JTextArea();
         log.setEditable(false);
         return new JScrollPane(log);
     }
 
-    private Component createFooter() {
+    private JPanel createFooter() {
         JPanel panel = new JPanel(new BorderLayout());
         tfMessage = new JTextField();
         tfMessage.addKeyListener(new KeyAdapter() {
@@ -119,8 +114,8 @@ public class ClientGUI extends JFrame implements  ClientView {
             }
         });
         btnSend = new JButton("send");
+
         // Устанавливаем цвет фона и текста для кнопки
-//        Color blueColor = new Color(0, 0, 255);
         btnSend.setBackground(blueColor);
         btnSend.setForeground(Color.WHITE);
         btnSend.addActionListener(new ActionListener() {
@@ -140,9 +135,5 @@ public class ClientGUI extends JFrame implements  ClientView {
         if (e.getID() == WindowEvent.WINDOW_CLOSING){
             disconnectFromServer();
         }
-    }
-    @Override
-    public void answer(String text) {
-        showMessage(text);
     }
 }
