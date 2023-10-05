@@ -4,9 +4,22 @@ import serv.server.Server;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 
-public class ClientGUI extends JFrame implements ClientView{
+/**
+ * Класс ClientGUI расширяет JFrame и реализует интерфейс ClientView, предоставляющий интерфейс пользователя для чат-клиента.
+ * Имеет размеры окна, цвета и логику создания интерфейса, а также обработчики событий.
+ *
+ * Поля ввода предоставляют возможность ввода IP-адреса, порта, логина и сообщения.
+ * Кнопки обеспечивают функциональность входа и отправки сообщений.
+ * Отправленные сообщения отображаются в текстовой области.
+ * При закрытии окна осуществляется отключение от сервера.
+ * Возможна смена имени пользователя в процессе взаимодействия с чатом.
+ */
+public class ClientGUI extends JFrame implements ClientView {
     public static final int CLIENT_WINDOW_WIDTH = 400;
     public static final int CLIENT_WINDOW_HEIGHT = 300;
     public static final Color blueColor = new Color(0, 0, 255);
@@ -18,7 +31,7 @@ public class ClientGUI extends JFrame implements ClientView{
 
     private Client client;
 
-    public ClientGUI(Server server){
+    public ClientGUI(Server server) {
         this.client = new Client(this, server);
 
         setSize(CLIENT_WINDOW_WIDTH, CLIENT_WINDOW_HEIGHT);
@@ -35,7 +48,7 @@ public class ClientGUI extends JFrame implements ClientView{
     }
 
     private void connectToServer() {
-        if (client.connectToServer(tfLogin.getText())){
+        if (client.connectToServer(tfLogin.getText())) {
             hideHeaderPanel(false);
         }
     }
@@ -52,11 +65,11 @@ public class ClientGUI extends JFrame implements ClientView{
         hideHeaderPanel(true);
     }
 
-    private void hideHeaderPanel(boolean visible){
+    private void hideHeaderPanel(boolean visible) {
         headerPanel.setVisible(visible);
     }
 
-    private void appendLog(String text){
+    private void appendLog(String text) {
         log.append(text + "\n");
     }
 
@@ -76,7 +89,7 @@ public class ClientGUI extends JFrame implements ClientView{
         add(createFooter(), BorderLayout.SOUTH);
     }
 
-    private JPanel createHeaderPanel(){
+    private JPanel createHeaderPanel() {
         headerPanel = new JPanel(new GridLayout(2, 3));
 
         tfIPAddress = new JTextField("127.0.0.1");
@@ -96,13 +109,13 @@ public class ClientGUI extends JFrame implements ClientView{
         return headerPanel;
     }
 
-    public void sendMessage(){
+    public void sendMessage() {
         String msg = tfMessage.getText();
         client.sendMessage(currentUser + ": " + msg);
         tfMessage.setText("");
     }
 
-    private JScrollPane createLog(){
+    private JScrollPane createLog() {
         log = new JTextArea();
         log.setEditable(false);
         return new JScrollPane(log);
@@ -114,7 +127,7 @@ public class ClientGUI extends JFrame implements ClientView{
         tfMessage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == '\n'){
+                if (e.getKeyChar() == '\n') {
                     sendMessage();
                 }
             }
@@ -139,7 +152,7 @@ public class ClientGUI extends JFrame implements ClientView{
     @Override
     protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
-        if (e.getID() == WindowEvent.WINDOW_CLOSING){
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             disconnectFromServer();
         }
     }

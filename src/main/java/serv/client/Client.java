@@ -14,10 +14,10 @@ public class Client {
         this.server = server;
     }
 
-    public boolean connectToServer(String name){
+    public boolean connectToServer(String name) {
         this.name = name;
         connected = server.connectUser(this);
-        if (connected){
+        if (connected) {
             printText("Successfully connected!\n");
             return true;
         } else {
@@ -38,7 +38,7 @@ public class Client {
     }
 
     //нам посылают
-    public void serverAnswer(String answer){
+    public void serverAnswer(String answer) {
         printText(answer);
     }
 
@@ -55,7 +55,7 @@ public class Client {
         return name;
     }
 
-    private void printText(String text){
+    private void printText(String text) {
         clientView.showMessage(text);
     }
 
