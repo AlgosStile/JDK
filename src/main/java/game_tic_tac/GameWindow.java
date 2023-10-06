@@ -1,4 +1,4 @@
-package org.game_tik_tak;
+package game_tic_tac;
 
 import javax.swing.*;
 import java.awt.*;
