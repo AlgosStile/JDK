@@ -12,18 +12,18 @@ import java.awt.event.WindowEvent;
 /**
  * Класс ClientGUI расширяет JFrame и реализует интерфейс ClientView, предоставляющий интерфейс пользователя для чат-клиента.
  * Имеет размеры окна, цвета и логику создания интерфейса, а также обработчики событий.
- *
- * Поля ввода предоставляют возможность ввода IP-адреса, порта, логина и сообщения.
+ * Поля ввода предоставляют возможность ввода IP-адреса, порта, логина, имени и сообщения.
  * Кнопки обеспечивают функциональность входа и отправки сообщений.
  * Отправленные сообщения отображаются в текстовой области.
  * При закрытии окна осуществляется отключение от сервера.
- * Возможна смена имени пользователя в процессе взаимодействия с чатом.
  * Логин в окне сервера больше не отображается.
+ * Прежде чем установить соединение пользователь должен ввести имя по кнопке "Set name"
  */
 public class ClientGUI extends JFrame implements ClientView {
     public static final int CLIENT_WINDOW_WIDTH = 400;
     public static final int CLIENT_WINDOW_HEIGHT = 300;
     public static final Color blueColor = new Color(0, 0, 255);
+    private String currentUser = null;
 
     JTextArea log;
     JTextField tfIPAddress, tfPort, tfLogin, tfMessage;
@@ -49,10 +49,15 @@ public class ClientGUI extends JFrame implements ClientView {
     }
 
     private void connectToServer() {
+        if (currentUser == null || currentUser.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your name using 'Set name' button first!");
+            return;
+        }
         if (client.connectToServer(tfLogin.getText())) {
             hideHeaderPanel(false);
         }
     }
+
 
     @Override
     public void showMessage(String text) {
@@ -74,7 +79,6 @@ public class ClientGUI extends JFrame implements ClientView {
         log.append(text + "\n");
     }
 
-    private String currentUser = "";
 
     private void promptForUser() {
         String newName = JOptionPane.showInputDialog("Please enter your name:");
@@ -100,15 +104,18 @@ public class ClientGUI extends JFrame implements ClientView {
         JButton btnLogin = buildButton("Login", e -> connectToServer());
         JButton btnSetName = buildButton("Set name", e -> promptForUser());
 
-        headerPanel.add(tfIPAddress);
-        headerPanel.add(tfPort);
-        headerPanel.add(Box.createGlue());
-        headerPanel.add(tfLogin);
-        headerPanel.add(btnLogin);
-        headerPanel.add(btnSetName);
 
-        return headerPanel;
-    }
+
+                headerPanel.add(tfIPAddress);
+                headerPanel.add(tfPort);
+                headerPanel.add(Box.createGlue());
+                headerPanel.add(tfLogin);
+                headerPanel.add(btnLogin);
+                headerPanel.add(btnSetName);
+
+                return headerPanel;
+            }
+
 
     public void sendMessage() {
         String msg = tfMessage.getText();
@@ -158,3 +165,4 @@ public class ClientGUI extends JFrame implements ClientView {
         }
     }
 }
+

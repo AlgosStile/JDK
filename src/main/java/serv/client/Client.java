@@ -8,6 +8,7 @@ public class Client {
     private ClientView clientView;
     private Server server;
     private boolean connected;
+    private boolean isNameSet = false;
 
     public Client(ClientView clientView, Server server) {
         this.clientView = clientView;
@@ -26,11 +27,18 @@ public class Client {
         }
     }
 
+    public void setName(String name) {
+        this.name = name;
+        this.isNameSet = true;
+    }
+    public boolean isNameSet() {
+        return isNameSet;
+    }
+
     //мы посылаем
     public void sendMessage(String message) {
         if (connected) {
             if (!message.isEmpty()) {
-//                server.sendMessage(name + ": " + message);//убрал отображение логина
                 server.sendMessage(message);
             }
         } else {
