@@ -18,6 +18,7 @@ import java.awt.event.WindowEvent;
  * Отправленные сообщения отображаются в текстовой области.
  * При закрытии окна осуществляется отключение от сервера.
  * Возможна смена имени пользователя в процессе взаимодействия с чатом.
+ * Логин в окне сервера больше не отображается.
  */
 public class ClientGUI extends JFrame implements ClientView {
     public static final int CLIENT_WINDOW_WIDTH = 400;
