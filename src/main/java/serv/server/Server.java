@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-    private List<Client> clients;
-    private ServerView serverView;
+    private final List<Client> clients;
+    private final ServerView serverView;
     private boolean work;
 
     public Server(ServerView serverView) {
@@ -28,9 +28,7 @@ public class Server {
     public void disconnectUser(Client client) {
         clients.remove(client);
         serverView.showMessage(client.getName() + " отключился.");
-        if (client != null) {
-            client.disconnectFromServer();
-        }
+        client.disconnectFromServer();
     }
 
     public void sendMessage(String text) {
