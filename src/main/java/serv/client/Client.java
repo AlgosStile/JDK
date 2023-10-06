@@ -30,7 +30,8 @@ public class Client {
     public void sendMessage(String message) {
         if (connected) {
             if (!message.isEmpty()) {
-                server.sendMessage(name + ": " + message);
+//                server.sendMessage(name + ": " + message);//убрал отображение логина
+                server.sendMessage(message);
             }
         } else {
             printText("No server connection!");

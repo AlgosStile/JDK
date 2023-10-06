@@ -44,7 +44,8 @@ public class Server {
 
     private void answerAll(String text) {
         for (Client client : clients) {
-            client.serverAnswer(text);
+//            client.serverAnswer(text);//убрал отображение логина
+            client.serverAnswer(client.getName() + ": " + text);
         }
     }
 
