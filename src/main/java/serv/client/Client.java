@@ -31,6 +31,7 @@ public class Client {
         this.name = name;
         this.isNameSet = true;
     }
+
     public boolean isNameSet() {
         return isNameSet;
     }

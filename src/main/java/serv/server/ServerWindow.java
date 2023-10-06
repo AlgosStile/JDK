@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 
-
 public class ServerWindow extends JFrame implements ServerView {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;

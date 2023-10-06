@@ -30,7 +30,7 @@ public class ClientGUI extends JFrame implements ClientView {
     JButton btnSend;
     JPanel headerPanel;
 
-    private Client client;
+    private final Client client;
 
     public ClientGUI(Server server) {
         this.client = new Client(this, server);
