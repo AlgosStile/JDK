@@ -1,22 +1,26 @@
 package Calculator;
 
-public class Pair<T1, T2> {
-    private T1 first;
-    private T2 second;
+public record Pair<T1, T2>(T1 first, T2 second) {
 
-    public Pair(T1 first, T2 second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    public T1 getFirst() {
+    /**
+     * Получает значение первого элемента коллекции.
+     *
+     * @return значение первого элемента
+     *
+     * first() и toString() по идее тут не нужны, если использую record Pair, но я оставил
+     * для демонстрации).
+     */
+    @Override
+    public T1 first() {
         return first;
     }
 
-    public T2 getSecond() {
-        return second;
-    }
 
+    /**
+     * Преобразует объект в строковое представление.
+     *
+     * @return строковое представление объекта
+     */
     @Override
     public String toString() {
         return "(" + first.toString() + ", " + second.toString() + ")";

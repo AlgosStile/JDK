@@ -1,6 +1,12 @@
 package Calculator;
 
 public class Main {
+
+    /**
+     * Точка входа программы.
+     *
+     * @param args аргументы командной строки
+     */
     public static void main(String[] args) {
         int sum = (int) Calculator.sum(5, 3);
         System.out.println("Сумма: " + sum);
@@ -14,6 +20,13 @@ public class Main {
         System.out.println("Пара: " + pair.toString());
     }
 
+    /**
+     * Сравнивает два массива типа T и возвращает true, если они равны, и false в противном случае..
+     *
+     * @param array1 первый массив для сравнения
+     * @param array2 второй массив для сравнения
+     * @return true, если массивы равны, false в противном случае
+     */
     public static <T> boolean compareArrays(T[] array1, T[] array2) {
         if (array1.length != array2.length) return false;
 

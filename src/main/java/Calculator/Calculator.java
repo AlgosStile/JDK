@@ -5,8 +5,14 @@ package Calculator;
  * В этом случае, все значения приводятся к double перед выполнением вычислений, и возвращается результат типа double.
  */
 
-
 public class Calculator {
+    /**
+     * Вычисляет сумму двух чисел.
+     *
+     * @param num1 первый номер
+     * @param num2 второй номер
+     * @return сумма чисел num1 и num2
+     */
     public static <T extends Number, U extends Number> double sum(T num1, U num2) {
         return num1.doubleValue() + num2.doubleValue();
     }
@@ -15,6 +21,14 @@ public class Calculator {
         return num1.doubleValue() * num2.doubleValue();
     }
 
+
+    /**
+     * Делит два числа и возвращает результат.
+     *
+     * @param num1 первое число, которое нужно разделить
+     * @param num2 второе число, на которое нужно разделить
+     * @return результат деления числа1 на число2
+     */
     public static <T extends Number, U extends Number> double divide(T num1, U num2) {
         if (num2.doubleValue() == 0) {
             throw new IllegalArgumentException("Cannot divide by zero");
@@ -22,6 +36,14 @@ public class Calculator {
         return num1.doubleValue() / num2.doubleValue();
     }
 
+
+    /**
+     * Вычисляет разницу между двумя числами.
+     *
+     * @param num1 первое число, которое нужно вычесть
+     * @param num2 второе число, которое нужно вычесть из первого числа
+     * @return разница между двумя числами
+     */
     public static <T extends Number, U extends Number> double subtract(T num1, U num2) {
         return num1.doubleValue() - num2.doubleValue();
     }
