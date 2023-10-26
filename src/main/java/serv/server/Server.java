@@ -1,6 +1,6 @@
-package Calculator.serv.server;
+package serv.server;
 
-import Calculator.serv.client.Client;
+import serv.client.Client;
 
 import java.util.ArrayList;
 import java.util.List;

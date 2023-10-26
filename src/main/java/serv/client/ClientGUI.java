@@ -1,6 +1,6 @@
-package Calculator.serv.client;
+package serv.client;
 
-import Calculator.serv.server.Server;
+import serv.server.Server;
 
 import javax.swing.*;
 import java.awt.*;

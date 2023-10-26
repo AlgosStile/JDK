@@ -1,7 +1,7 @@
-package Calculator.serv;
+package serv;
 
-import Calculator.serv.client.ClientGUI;
-import Calculator.serv.server.ServerWindow;
+import serv.client.ClientGUI;
+import serv.server.ServerWindow;
 
 
 public class Main {
