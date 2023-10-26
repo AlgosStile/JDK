@@ -1,4 +1,4 @@
-package serv.server;
+package Calculator.serv.server;
 
 import javax.swing.*;
 import java.awt.*;

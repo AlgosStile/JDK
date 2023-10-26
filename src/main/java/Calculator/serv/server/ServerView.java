@@ -1,4 +1,4 @@
-package serv.server;
+package Calculator.serv.server;
 
 
 public interface ServerView {

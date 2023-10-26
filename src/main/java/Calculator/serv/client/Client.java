@@ -1,7 +1,7 @@
-package serv.client;
+package Calculator.serv.client;
 
 
-import serv.server.Server;
+import Calculator.serv.server.Server;
 
 public class Client {
     private String name;

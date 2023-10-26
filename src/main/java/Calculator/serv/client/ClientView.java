@@ -1,4 +1,4 @@
-package serv.client;
+package Calculator.serv.client;
 
 public interface ClientView {
     void showMessage(String text);
